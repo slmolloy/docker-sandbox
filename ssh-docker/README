@@ -1,0 +1,36 @@
+#With docker file in place...
+
+# Run docker build
+# -t to tag
+# . to specify current directory
+docker build -t ssh-docker .
+
+# Then to run docker image
+# -P to randomly assign ports on host
+docker run -P ssh-docker
+
+# OR
+
+# Specify port
+# -d to detach container output and get access to shell again
+# -p instead of -P
+# IP address:host port:remote port
+docker run -d -p 127.0.0.1:2222:22 ssh-docker
+
+# Find port number assigned
+docker ps
+
+# From new shell, ssh into docker container
+ssh root@localhost -p <port number from docker ps>
+
+# Password will be "screencast"
+
+# Touch files or install stuff then exit ssh.
+
+# To save new image based on changes made
+# -m to specify commit message
+# -p to pause container before commit
+# -c to apply changes from Dockerfile
+# Specify running container id
+# Specify new image name or image:tag
+docker commit -m "Added helloroot.txt" -p -a -c 19c042b2654c ssh-docker:file-add

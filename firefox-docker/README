@@ -1,0 +1,10 @@
+# Found at: http://fabiorehm.com/blog/2014/09/11/running-gui-apps-with-docker/
+
+# Build docker image
+docker build -t firefox .
+
+# Run docker image, several options, all seem to work fine
+docker run -e DISPLAY -v $HOME/.Xauthority:/home/developer/.Xauthority --net=host firefox
+docker run -ti --rm -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix firefox
+docker run -d -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix firefox
+docker run -d -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --net=host firefox
